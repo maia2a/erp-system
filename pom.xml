@@ -30,6 +30,10 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+	<dependency>
+		<artifactId>spring-boot-starter-security</artifactId>
+		<groupId>org.springframework.boot</groupId>
+	</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
