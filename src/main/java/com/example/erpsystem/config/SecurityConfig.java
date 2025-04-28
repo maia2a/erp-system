@@ -23,8 +23,8 @@ public class SecurityConfig {
             .requestMatchers("/api/auth/**").permitAll()
 
             // Role-based access
-            .requestMatchers("/api/inventory/**").hasRole("ADMIN")
-            .requestMatchers("/api/inventory").hasRole("ADMIN", "USER")
+            .requestMatchers("/api/inventory/**").hasAuthority("ROLE_ADMIN")
+            .requestMatchers("/api/inventory").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
 
             // Default role
             .anyRequest().authenticated()
