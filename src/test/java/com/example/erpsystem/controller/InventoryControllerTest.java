@@ -1,18 +1,23 @@
 package com.example.erpsystem.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.hibernate.annotations.TimeZoneStorage;
+import com.example.erpsystem.entity.InventoryItem; // Import the InventoryItem entity
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -24,7 +29,7 @@ class InventoryControllerTest {
 
   @Test
   void testCreateAndGetItem() throws Exception {
-    InvetoryItem newItem = new InvetoryItem(null, "Test Item", 10, 100.0);
+    InventoryItem newItem = new InventoryItem(null, "Test Item", 10, 100.0);
 
     // Create a new item
     mockMvc.perform(post("/api/inventory")
