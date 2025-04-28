@@ -1,7 +1,7 @@
 package com.example.erpsystem.service;
 
-import com.example.erpsystem.entity.InvetoryItem;
-import com.example.erpsystem.repository.InventoryRepository;
+import com.example.erpsystem.entity.InventoryItem;
+import com.example.erpsystem.repository.InventoryRepository; // Ensure this import is correct
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,33 +15,27 @@ public class InventoryService {
     this.repository = repository;
   }
 
-  // This method retrieves all items from the inventory and returns them as a list
-  public List<InvetoryItem> getAllItems() {
+  public List<InventoryItem> getAllItems() {
     return repository.findAll();
   }
 
-  // This method retrieves an item by its ID and returns it wrapped in an Optional
-  public Optional<InvetoryItem> getItemById(Long id) {
+  public Optional<InventoryItem> getItemById(Long id) {
     return repository.findById(id);
   }
 
-  // This method creates a new item and returns the created item
-  public InvetoryItem createItem(InvetoryItem item) {
+  public InventoryItem createItem(InventoryItem item) {
     return repository.save(item);
   }
 
-  // This method updates an existing item by its ID and returns the updated item
-  public Optional<InvetoryItem> updateItem(Long id, InvetoryItem item) {
+  public Optional<InventoryItem> updateItem(Long id, InventoryItem updatedItem) {
     return repository.findById(id).map(existingItem -> {
-      existingItem.setName(item.getName());
-      existingItem.setQuantity(item.getQuantity());
-      existingItem.setPrice(item.getUnitPrice());
+      existingItem.setName(updatedItem.getName());
+      existingItem.setQuantity(updatedItem.getQuantity());
+      existingItem.setUnitPrice(updatedItem.getUnitPrice()); // Corrected from setPrice to setUnitPrice
       return repository.save(existingItem);
     });
   }
 
-  // This method deletes an item by its ID and returns true if the item was
-  // deleted, false otherwise
   public boolean deleteItem(Long id) {
     return repository.findById(id).map(item -> {
       repository.delete(item);
